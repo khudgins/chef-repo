@@ -23,7 +23,7 @@ default[:firewall][:interfaces] = [
           :external_port => '2222',
           :target_address => '10.43.43.5',
           :target_port => '22'
-        }
+        },
         {
           :external_port => '80',
           :target_address => '10.43.43.5',

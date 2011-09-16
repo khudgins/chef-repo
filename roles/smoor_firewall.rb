@@ -11,17 +11,7 @@ override_attributes(
   :firewall => {
     :interfaces => [
       {
-<<<<<<< HEAD
-      :iface => 'eth0',
-      :type => 'static',
-      :attributes => {
-        :address => '216.88.4.25',
-        :netmask => '255.255.240.0',
-        :broadcast => '216.88.15.255',
-        :gateway => '216.88.0.1'
-      }
-=======
-        :iface => 'eth0',
+       :iface => 'eth0',
         :type => 'static',
         :attributes => {
           :address => '216.88.4.25',
@@ -44,14 +34,13 @@ override_attributes(
             :external_port => '2222',
             :target_address => '10.43.43.5',
             :target_port => '22'
-          }
+          },
           {
             :external_port => '80',
             :target_address => '10.43.43.5',
             :target_port => '80'
           }
         ]
->>>>>>> e76d9fdb325038967eb89a379a56e1cab2877ec7
       },
       {
         :iface => 'eth1',
@@ -69,10 +58,6 @@ override_attributes(
         :attributes => {}
       }
     ]
-<<<<<<< HEAD
   }  
 )
-=======
-  }
-)
->>>>>>> e76d9fdb325038967eb89a379a56e1cab2877ec7
+
