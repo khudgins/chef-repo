@@ -32,3 +32,28 @@ template '/etc/network/interfaces' do
   variables( :interfaces => node[:firewall][:interfaces] )
   notifies :restart, 'service[:networking]'
 end 
+
+# This is persistent.
+template '/etc/network/interfaces' do
+  action :create
+  source 'sysctl.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+end
+
+# So we don't have to reboot, manually enable forwarding if it's not currently:
+execute "enable ipv4 forwarding" do
+  command "echo 1 > /proc/sys/net/ipv4/ip_forward"
+  action :run
+  not_if {`cat /proc/sys/net/ipv4/ip_forward`.chomp == '1'}
+end
+
+template '/etc/rc.local' do
+  source 'rc.local.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  variables( :interfaces => node[:firewall][:interfaces] )
+  notifies :restart, 'service[:networking]'
+end
