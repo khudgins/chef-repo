@@ -2,7 +2,7 @@ name "smoor_firewall"
 description "Shadowmoor network firewall."
 run_list(
   'recipe[avahi]',
-  'recipe[firewall]'
+  'role[firewall]'
 )
 # Attributes applied if the node doesn't have it set already.
 #default_attributes()
@@ -58,6 +58,23 @@ override_attributes(
         :attributes => {}
       }
     ]
-  }  
+  },
+  "dhcpd": {
+        "netmask": "255.255.255.0",
+        "domain": "shadowmoor.org",
+        "interfaces": [
+          "eth1"
+        ],
+        "nameservers": [
+          "8.8.8.8",
+          "8.8.4.4"
+        ],
+        "subnet": "10.42.43.0",
+        "range": [
+          "10.42.43.6",
+          "10.42.43.200"
+        ]
+      }
+    
 )
 
