@@ -49,11 +49,16 @@ execute "enable ipv4 forwarding" do
   not_if {`cat /proc/sys/net/ipv4/ip_forward`.chomp == '1'}
 end
 
+execute "rclocal" do
+  command "/etc/rc.local"
+  action :nothing
+end
+
 template '/etc/rc.local' do
   source 'rc.local.erb'
   owner 'root'
   group 'root'
   mode '0755'
   variables( :interfaces => node[:firewall][:interfaces] )
-  notifies :restart, 'service[:networking]'
+  notifies :run, 'execute[rclocal]', :immediately
 end
