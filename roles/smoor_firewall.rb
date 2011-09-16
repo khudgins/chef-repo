@@ -59,7 +59,7 @@ override_attributes(
       }
     ]
   },
-  "dhcpd": {
+  :dhcpd => {
         :netmask => "255.255.255.0",
         :domain => "shadowmoor.org",
         :interfaces => ["eth1"],
