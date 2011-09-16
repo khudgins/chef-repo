@@ -16,3 +16,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
+service 'networking' do
+  action :enable
+  supports :restart => true
+end
+
+template '/etc/network/interfaces' do
+  action :create
+  source 'interfaces.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  variables( :interfaces => node[:firewall][:interfaces] )
+  notifies :restart, 'service[:networking]'
+end 
