@@ -30,5 +30,5 @@ template '/etc/network/interfaces' do
   group 'root'
   mode '0644'
   variables( :interfaces => node[:firewall][:interfaces] )
-  notifies :restart, 'service[:networking]'
+  notifies :restart, 'service[networking]'
 end 
