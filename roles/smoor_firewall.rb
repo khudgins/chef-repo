@@ -60,20 +60,12 @@ override_attributes(
     ]
   },
   "dhcpd": {
-        "netmask": "255.255.255.0",
-        "domain": "shadowmoor.org",
-        "interfaces": [
-          "eth1"
-        ],
-        "nameservers": [
-          "8.8.8.8",
-          "8.8.4.4"
-        ],
-        "subnet": "10.42.43.0",
-        "range": [
-          "10.42.43.6",
-          "10.42.43.200"
-        ]
+        :netmask => "255.255.255.0",
+        :domain => "shadowmoor.org",
+        :interfaces => ["eth1"],
+        :nameservers => [ "8.8.8.8", "8.8.4.4" ],
+        :subnet => "10.42.43.0",
+        :range => [ "10.42.43.6", "10.42.43.200"]
       }
     
 )
