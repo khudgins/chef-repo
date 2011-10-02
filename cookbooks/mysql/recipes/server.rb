@@ -25,7 +25,6 @@ include_recipe "mysql::client"
 node.set_unless['mysql']['server_debian_password'] = secure_password
 node.set_unless['mysql']['server_root_password']   = secure_password
 node.set_unless['mysql']['server_repl_password']   = secure_password
-node.set_unless['mysql']['db_maker_password']      = secure_password
 
 if platform?(%w{debian ubuntu})
 
@@ -36,26 +35,25 @@ if platform?(%w{debian ubuntu})
     recursive true
   end
 
+  execute "preseed mysql-server" do
+    command "debconf-set-selections /var/cache/local/preseeding/mysql-server.seed"
+    action :nothing
+  end
+
   template "/var/cache/local/preseeding/mysql-server.seed" do
     source "mysql-server.seed.erb"
     owner "root"
     group "root"
     mode "0600"
+    notifies :run, resources(:execute => "preseed mysql-server"), :immediately
   end
 
-  template "/etc/mysql/debian.cnf" do
+  template "#{node['mysql']['conf_dir']}/debian.cnf" do
     source "debian.cnf.erb"
     owner "root"
     group "root"
     mode "0600"
   end
-
-  execute "preseed mysql-server" do
-    command "debconf-set-selections /var/cache/local/preseeding/mysql-server.seed"
-    only_if "test -f /var/cache/local/preseeding/mysql-server.seed" 
-  end
-
-  
 
 end
 
@@ -74,11 +72,7 @@ service "mysql" do
   action :nothing
 end
 
-link value_for_platform([ "centos", "redhat", "suse" , "fedora" ] => {"default" => "/etc/my.cnf"}, "default" => "/etc/mysql/my.cnf") do
-  to "#{node[:mysql][:datadir]}/my.cnf"
-end
-
-template "#{node[:mysql][:datadir]}/my.cnf" do
+template "#{node['mysql']['conf_dir']}/my.cnf" do
   source "my.cnf.erb"
   owner "root"
   group "root"
@@ -107,12 +101,7 @@ unless platform?(%w{debian ubuntu})
 
 end
 
-grants_path = value_for_platform(
-  ["centos", "redhat", "suse", "fedora" ] => {
-    "default" => "/etc/mysql_grants.sql"
-  },
-  "default" => "/etc/mysql/grants.sql"
-)
+grants_path = "#{node['mysql']['conf_dir']}/mysql_grants.sql"
 
 begin
   t = resources("template[#{grants_path}]")
