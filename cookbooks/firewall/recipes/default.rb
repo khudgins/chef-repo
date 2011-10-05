@@ -34,7 +34,7 @@ template '/etc/network/interfaces' do
 end 
 
 # This is persistent.
-template '/etc/network/interfaces' do
+template '/etc/sysctl.conf' do
   action :create
   source 'sysctl.conf.erb'
   owner 'root'

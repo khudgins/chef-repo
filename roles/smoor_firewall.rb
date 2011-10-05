@@ -2,7 +2,8 @@ name "smoor_firewall"
 description "Shadowmoor network firewall."
 run_list(
   'recipe[avahi]',
-  'role[firewall]'
+  'role[firewall]',
+  'recipe[dhcpd]'
 )
 # Attributes applied if the node doesn't have it set already.
 #default_attributes()
@@ -18,7 +19,15 @@ override_attributes(
           :netmask => '255.255.240.0',
           :broadcast => '216.88.15.255',
           :gateway => '216.88.0.1'
-        }
+        },
+        :forwarding => [
+          {
+            :external_port => '80',
+            :target_address => '10.42.43.6',
+            :target_port => '80'
+          }
+        ]
+
       },
       {
         :iface => 'eth0:0',
@@ -28,19 +37,7 @@ override_attributes(
           :netmask => '255.255.240.0',
           :broadcast => '216.88.15.255',
           :gateway => '216.88.0.1'
-        },
-        :forwarding => [
-          {
-            :external_port => '2222',
-            :target_address => '10.43.43.5',
-            :target_port => '22'
-          },
-          {
-            :external_port => '80',
-            :target_address => '10.43.43.5',
-            :target_port => '80'
-          }
-        ]
+        }
       },
       {
         :iface => 'eth1',
@@ -65,7 +62,9 @@ override_attributes(
         :interfaces => ["eth1"],
         :nameservers => [ "8.8.8.8", "8.8.4.4" ],
         :subnet => "10.42.43.0",
-        :range => [ "10.42.43.6", "10.42.43.200"]
+        :range => [ "10.42.43.6", "10.42.43.200"],
+        :routers=> "10.42.43.1",
+	:max_lease_time => "7200"
       }
     
 )
