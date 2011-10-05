@@ -1,0 +1,29 @@
+{
+  "providing": {
+  },
+  "maintainer": "YOUR_COMPANY_NAME",
+  "long_description": "= DESCRIPTION:\n\tMakes sure cron and the relevant pieces are installed\n= REQUIREMENTS:\n\tRHEL-based distro (for now)\n= ATTRIBUTES:\n\n= USAGE:\n\tJust include the recipe into your role\n",
+  "replacing": {
+  },
+  "description": "Installs/Configures cron",
+  "maintainer_email": "YOUR_EMAIL",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "version": "0.0.1",
+  "recipes": {
+  },
+  "attributes": {
+  },
+  "suggestions": {
+  },
+  "dependencies": {
+  },
+  "platforms": {
+  },
+  "name": "cron",
+  "conflicting": {
+  },
+  "license": "All rights reserved"
+}

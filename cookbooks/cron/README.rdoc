@@ -1,0 +1,8 @@
+= DESCRIPTION:
+	Makes sure cron and the relevant pieces are installed
+= REQUIREMENTS:
+	RHEL-based distro (for now)
+= ATTRIBUTES:
+
+= USAGE:
+	Just include the recipe into your role

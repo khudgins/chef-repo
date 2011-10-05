@@ -1,0 +1,29 @@
+{
+  "providing": {
+  },
+  "maintainer": "Keith Hudgins",
+  "long_description": "= DESCRIPTION:\n\nThis cookbook will set up some crontab entries to back up your selected\nresources to Amazon S3.\n\nAWS Credentials\n===============\n\nNote: I'm cribbing this bit entirely from Opscode's AWS cookbook. It works, and will allow you to more easily reuse your credentials if you need to!\n\nIn order to manage AWS components, authentication credentials need to be available to the node. There are a number of ways to handle this, such as node attributes or roles. We recommend storing these in a databag (Chef 0.8+), and loading them in the recipe where the resources are needed.\n\nDataBag recommendation:\n\n    % knife data bag show aws main\n    {\n      \"id\": \"main\",\n      \"aws_access_key_id\": \"YOUR_ACCESS_KEY\",\n      \"aws_secret_access_key\": \"YOUR_SECRET_ACCESS_KEY\"\n      \"s3_backup_bucket\": \"YOUR_BACKUP_S3_BUCKET\"\n    }\n\nThis can be loaded in a recipe with:\n\n    aws = data_bag_item(\"aws\", \"main\")\n\nAnd to access the values:\n\n    aws['aws_access_key_id']\n    aws['aws_secret_access_key']\n\nWe'll look at specific usage below.\n\n---\n\nBackup List\n===========\n\nBackups are performed via crontab entries in /etc/cron.frequency.\nThese are configured via another databag, the format is below:\n\n    % knife data bag show backup list\n    {\n\t    \"type\": \"file\"\n\t    \"list\": \"/path/to/file /path/to/dir\"\n\t    \"frequency\": \"weekly\"\n\t  }\n}\n\nRecipes\n=======\n\ndefault.rb\n----------\n\nThe default recipe installs the `right_aws` RubyGem, which this cookbook requires in order to work with the EC2 API. Make sure that the aws recipe is in the node or role `run_list` before any resources from this cookbook are used.\n\n    \"run_list\": [\n      \"recipe[aws]\"\n    ]\n\nThe `gem_package` is created as a Ruby Object and thus installed during the Compile Phase of the Chef run.\n\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
+  "replacing": {
+  },
+  "description": "Installs/Configures s3backup",
+  "maintainer_email": "greenman@greenman.org",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "version": "0.0.1",
+  "recipes": {
+  },
+  "attributes": {
+  },
+  "suggestions": {
+  },
+  "dependencies": {
+  },
+  "platforms": {
+  },
+  "name": "s3backup",
+  "conflicting": {
+  },
+  "license": "Apache 2.0"
+}
