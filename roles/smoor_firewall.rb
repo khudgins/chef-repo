@@ -25,6 +25,11 @@ override_attributes(
             :external_port => '80',
             :target_address => '10.42.43.6',
             :target_port => '80'
+          },
+          {
+            :external_port => '25565',
+            :target_address => '10.42.43.9',
+            :target_port => '25565'
           }
         ]
 

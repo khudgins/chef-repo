@@ -27,7 +27,7 @@ else
 end
 
 default['minecraft']['backupdir'] = '/srv/minecraft/backups/'
-default['minecraft']['bukkit'] = '/srv/minecraft/'
+default['minecraft']['bukkitdir'] = '/srv/minecraft/'
 default['minecraft']['bukkitfilename'] = 'craftbukkit.jar'
 default['minecraft']['bukkitupdate'] = 'craftbukkit-updater.jar'
 default['minecraft']['javaloc'] = `which java`
