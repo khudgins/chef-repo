@@ -3,20 +3,20 @@ default[:firewall][:interfaces] = [
       :iface => 'eth0',
       :type => 'static',
       :attributes => {
-        :address => '216.88.4.25',
-        :netmask => '255.255.240.0',
-        :broadcast => '216.88.15.255',
-        :gateway => '216.88.0.1'
+        :address => '216.126.34.206',
+        :netmask => '255.255.255.192',
+        :broadcast => '216.126.34.255',
+        :gateway => '216.126.34.193'
       }
     },
     {
       :iface => 'eth0:0',
       :type => 'static',
       :attributes => {
-        :address => '216.88.4.26',
-        :netmask => '255.255.240.0',
-        :broadcast => '216.88.15.255',
-        :gateway => '216.88.0.1'
+        :address => '216.88.34.207',
+        :netmask => '255.255.255.192',
+        :broadcast => '216.126.34.255',
+        :gateway => '216.126.34.193'
       },
       :forwarding => [
         {
